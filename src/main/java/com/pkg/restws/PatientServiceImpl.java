@@ -34,5 +34,10 @@ public class PatientServiceImpl implements PatientService {
 		List<Patient> response = new ArrayList<>(tempList);
 		return response;
 	}
+
+	@Override
+	public Patient getPatient(Long id) {
+		return patients.get(id);
+	}
 	
 }
