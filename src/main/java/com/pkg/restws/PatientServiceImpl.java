@@ -1,6 +1,7 @@
 package com.pkg.restws;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,9 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<Patient> getPatients() {
-		return (ArrayList)patients.values();
+		Collection<Patient> tempList= patients.values();
+		List<Patient> response = new ArrayList<>(tempList);
+		return response;
 	}
 	
 }
