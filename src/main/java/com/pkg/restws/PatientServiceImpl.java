@@ -14,15 +14,14 @@ import com.pkg.restws.model.Patient;
 
 @Service
 public class PatientServiceImpl implements PatientService {
-	
-	Map<Long,Patient> patients = new HashMap<>();
+
+	Map<Long, Patient> patients = new HashMap<>();
 	long currentId = 123;
-	
-	
+
 	public PatientServiceImpl() {
 		init();
 	}
-	
+
 	void init() {
 		Patient patient = new Patient();
 		patient.setId(currentId);
@@ -32,7 +31,7 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<Patient> getPatients() {
-		Collection<Patient> tempList= patients.values();
+		Collection<Patient> tempList = patients.values();
 		List<Patient> response = new ArrayList<>(tempList);
 		return response;
 	}
@@ -51,10 +50,30 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Response updatePatient(Patient pat) {
-		
-		
-		
-		return null;
+		Response res;
+		Patient existP = patients.get(pat.getId());
+
+		if (existP != null) {
+			patients.put(pat.getId(), pat);
+			res = Response.ok().build();
+		} else {
+			res = Response.notModified().build();
+		}
+		return res;
 	}
-	
+
+	@Override
+	public Response deletePatient(Long id) {
+		Patient temp = patients.get(id);
+		Response res;
+		if (temp != null) {
+			patients.remove(id);
+			res = Response.ok().build();
+		} else {
+			res = Response.notModified().build();
+		}
+
+		return res;
+	}
+
 }
